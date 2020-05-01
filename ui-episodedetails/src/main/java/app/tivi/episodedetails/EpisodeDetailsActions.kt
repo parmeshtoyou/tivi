@@ -16,13 +16,9 @@
 
 package app.tivi.episodedetails
 
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
-
-@Module
-abstract class EpisodeDetailsFragmentBuilder {
-    @ContributesAndroidInjector(modules = [
-        EpisodeDetailsPresenterAssistedModule::class
-    ])
-    abstract fun episodeDetailsFragment(): EpisodeDetailsFragment
+internal sealed class EpisodeDetailsAction {
+    object RefreshAction : EpisodeDetailsAction()
+    object AddEpisodeWatchAction : EpisodeDetailsAction()
+    data class RemoveEpisodeWatchAction(val watchId: Long) : EpisodeDetailsAction()
+    object RemoveAllEpisodeWatchesAction : EpisodeDetailsAction()
 }

@@ -43,6 +43,15 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerVersion Libs.AndroidX.UI.kotlinCompilerVersion
+        kotlinCompilerExtensionVersion Libs.AndroidX.UI.version
+    }
 }
 
 dependencies {
@@ -50,20 +59,30 @@ dependencies {
     implementation project(':base-android')
     implementation project(':domain')
     implementation project(':common-ui-view')
-    implementation project(':ui-episodedetails-compose')
-
-    api project(':presenter-episodedetails')
+    implementation project(':common-ui-compose')
 
     implementation Libs.AndroidX.Lifecycle.extensions
     implementation Libs.AndroidX.Lifecycle.viewmodelKtx
 
     implementation Libs.AndroidX.coreKtx
+
     implementation Libs.AndroidX.Fragment.fragment
     implementation Libs.AndroidX.Fragment.fragmentKtx
+
+    implementation Libs.AndroidX.UI.composeRuntime
+    implementation Libs.AndroidX.UI.foundation
+    implementation Libs.AndroidX.UI.framework
+    implementation Libs.AndroidX.UI.layout
+    implementation Libs.AndroidX.UI.material
+    implementation Libs.AndroidX.UI.animation
+    implementation Libs.AndroidX.UI.tooling
+    implementation Libs.AndroidX.UI.livedata
 
     implementation Libs.Google.material
 
     implementation Libs.Kotlin.stdlib
+
+    api Libs.mvRx
 
     implementation Libs.Dagger.androidSupport
     kapt Libs.Dagger.compiler

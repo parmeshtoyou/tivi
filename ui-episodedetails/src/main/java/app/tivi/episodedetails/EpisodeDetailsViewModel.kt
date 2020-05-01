@@ -28,6 +28,10 @@ import app.tivi.domain.interactors.UpdateEpisodeDetails
 import app.tivi.domain.launchObserve
 import app.tivi.domain.observers.ObserveEpisodeDetails
 import app.tivi.domain.observers.ObserveEpisodeWatches
+import app.tivi.episodedetails.EpisodeDetailsAction.AddEpisodeWatchAction
+import app.tivi.episodedetails.EpisodeDetailsAction.RefreshAction
+import app.tivi.episodedetails.EpisodeDetailsAction.RemoveAllEpisodeWatchesAction
+import app.tivi.episodedetails.EpisodeDetailsAction.RemoveEpisodeWatchAction
 import com.airbnb.mvrx.FragmentViewModelContext
 import com.airbnb.mvrx.MvRxViewModelFactory
 import com.airbnb.mvrx.ViewModelContext
@@ -92,7 +96,7 @@ class EpisodeDetailsViewModel @AssistedInject constructor(
         copy(watches = watches)
     }
 
-    fun submitAction(action: EpisodeDetailsAction) {
+    internal fun submitAction(action: EpisodeDetailsAction) {
         viewModelScope.launch { pendingActions.send(action) }
     }
 

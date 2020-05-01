@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Google LLC
+ * Copyright 2020 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -97,7 +97,9 @@ import app.tivi.data.entities.Episode
 import app.tivi.data.entities.EpisodeWatchEntry
 import app.tivi.data.entities.PendingAction
 import app.tivi.data.entities.Season
-import app.tivi.episodedetails.compose.R
+import app.tivi.episodedetails.EpisodeDetailsAction.AddEpisodeWatchAction
+import app.tivi.episodedetails.EpisodeDetailsAction.RemoveAllEpisodeWatchesAction
+import app.tivi.episodedetails.EpisodeDetailsAction.RemoveEpisodeWatchAction
 import app.tivi.ui.animations.lerp
 import app.tivi.util.TiviDateFormatter
 import kotlin.math.hypot
@@ -110,7 +112,7 @@ import org.threeten.bp.OffsetDateTime
  * We need to return an `Any` since this method will be called from modules which do not depend
  * on Compose
  */
-fun ViewGroup.composeEpisodeDetails(
+internal fun ViewGroup.composeEpisodeDetails(
     state: LiveData<EpisodeDetailsViewState>,
     insets: LiveData<WindowInsetsCompat>,
     actioner: (EpisodeDetailsAction) -> Unit,
@@ -135,7 +137,7 @@ private fun EpisodeDetails(
 ) {
     Column {
         if (viewState.episode != null && viewState.season != null) {
-            Backdrop(season = viewState.season!!, episode = viewState.episode!!)
+            Backdrop(season = viewState.season, episode = viewState.episode)
         }
         VerticalScroller {
             Surface(elevation = 2.dp) {
@@ -460,7 +462,7 @@ private fun Modifier.drawGrowingCircle(
 }
 
 @Composable
-fun MarkWatchedButton(
+private fun MarkWatchedButton(
     modifier: Modifier = Modifier,
     actioner: (EpisodeDetailsAction) -> Unit
 ) {
@@ -479,7 +481,7 @@ fun MarkWatchedButton(
 }
 
 @Composable
-fun AddWatchButton(
+private fun AddWatchButton(
     modifier: Modifier = Modifier,
     actioner: (EpisodeDetailsAction) -> Unit
 ) {
